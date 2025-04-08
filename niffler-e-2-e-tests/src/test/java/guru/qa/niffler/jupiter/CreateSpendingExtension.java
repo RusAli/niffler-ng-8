@@ -1,5 +1,6 @@
 package guru.qa.niffler.jupiter;
 
+import guru.qa.niffler.annotations.Spend;
 import guru.qa.niffler.api.SpendApiClient;
 import guru.qa.niffler.model.CategoryJson;
 import guru.qa.niffler.model.SpendJson;
@@ -17,24 +18,24 @@ public class CreateSpendingExtension implements BeforeEachCallback {
   @Override
   public void beforeEach(ExtensionContext context) {
     AnnotationSupport.findAnnotation(context.getRequiredTestMethod(), Spend.class)
-        .ifPresent(anno -> {
-          SpendJson spendJson = new SpendJson(
-              null,
-              new Date(),
-              new CategoryJson(
-                  null,
-                  anno.category(),
-                  anno.username(),
-                  false
-              ),
-              anno.currency(),
-              anno.amount(),
-              anno.description(),
-              anno.username()
-          );
+            .ifPresent(anno -> {
+              SpendJson spendJson = new SpendJson(
+                      null,
+                      new Date(),
+                      new CategoryJson(
+                              null,
+                              anno.category(),
+                              anno.username(),
+                              false
+                      ),
+                      anno.currency(),
+                      anno.amount(),
+                      anno.description(),
+                      anno.username()
+              );
 
-          SpendJson created = spendApiClient.addSpend(spendJson);
-          context.getStore(NAMESPACE).put(context.getUniqueId(), created);
-        });
+              SpendJson created = spendApiClient.addSpend(spendJson);
+              context.getStore(NAMESPACE).put(context.getUniqueId(), created);
+            });
   }
 }
