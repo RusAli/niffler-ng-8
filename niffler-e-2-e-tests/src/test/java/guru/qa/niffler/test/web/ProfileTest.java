@@ -1,7 +1,7 @@
 package guru.qa.niffler.test.web;
 
 import com.codeborne.selenide.Selenide;
-import guru.qa.niffler.annotations.Category;
+import guru.qa.niffler.jupiter.annotation.Category;
 import guru.qa.niffler.jupiter.BrowserExtension;
 import guru.qa.niffler.model.CategoryJson;
 import guru.qa.niffler.page.LoginPage;

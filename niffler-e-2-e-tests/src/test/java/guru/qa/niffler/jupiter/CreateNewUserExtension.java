@@ -1,7 +1,7 @@
 package guru.qa.niffler.jupiter;
 
 import com.github.javafaker.Faker;
-import guru.qa.niffler.annotations.NewRandomUser;
+import guru.qa.niffler.jupiter.annotation.NewRandomUser;
 import guru.qa.niffler.model.UserJson;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.support.AnnotationSupport;

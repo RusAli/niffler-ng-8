@@ -1,7 +1,7 @@
 package guru.qa.niffler.jupiter;
 
 import com.github.javafaker.Faker;
-import guru.qa.niffler.annotations.Category;
+import guru.qa.niffler.jupiter.annotation.Category;
 import guru.qa.niffler.api.SpendApiClient;
 import guru.qa.niffler.model.CategoryJson;
 import org.junit.jupiter.api.extension.*;
