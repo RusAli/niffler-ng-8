@@ -12,6 +12,9 @@ public class MainPage {
   private final ElementsCollection tableRows = $$("#spendings tbody tr");
   private final SelenideElement spendingTable = $("#spendings");
   private final SelenideElement statsSpinner = $("#stat");
+  private final SelenideElement header = $("#root header");
+  private final SelenideElement iconBtn = header.$("button");
+  private final SelenideElement iconMenu = $("ul[role='menu']");
 
   public EditSpendingPage editSpending(String spendingDescription) {
     tableRows.find(text(spendingDescription))
@@ -26,9 +29,21 @@ public class MainPage {
             .should(visible);
   }
 
-  public void checkThatMainPageIsShown() {
+  public MainPage checkThatMainPageIsShown() {
     spendingTable.shouldBe(visible).shouldHave(innerText("History of Spendings"));
     statsSpinner.shouldBe(visible).shouldHave(innerText("Statistics"));
+    return this;
   }
 
+  public FriendsPage openFriends() {
+    iconBtn.click();
+    iconMenu.$$("li").find(text("Friends")).click();
+    return new FriendsPage();
+  }
+
+  public FriendsPage openAll() {
+    iconBtn.click();
+    iconMenu.$$("li").find(text("All People")).click();
+    return new FriendsPage();
+  }
 }
