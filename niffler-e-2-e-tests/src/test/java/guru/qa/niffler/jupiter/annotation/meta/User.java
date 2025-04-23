@@ -20,5 +20,5 @@ public @interface User {
 
   Spending[] spendings() default {};
 
-  String username() default "duck";
+  String username() default "";
 }
