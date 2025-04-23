@@ -8,9 +8,13 @@ public interface Config {
 
   String frontUrl();
 
-  String spendUrl();
+  String authUrl();
 
-  String loginUrl();
+  String gatewayUrl();
+
+  String userdataUrl();
+
+  String spendUrl();
 
   String ghUrl();
 }

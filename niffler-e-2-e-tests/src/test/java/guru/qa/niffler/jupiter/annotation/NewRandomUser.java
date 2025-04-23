@@ -1,6 +1,6 @@
 package guru.qa.niffler.jupiter.annotation;
 
-import guru.qa.niffler.jupiter.CreateNewUserExtension;
+import guru.qa.niffler.jupiter.extension.CreateNewUserExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.ElementType;
