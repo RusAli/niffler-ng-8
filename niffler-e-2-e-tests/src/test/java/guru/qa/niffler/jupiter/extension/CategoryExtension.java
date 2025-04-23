@@ -33,7 +33,7 @@ public class CategoryExtension implements
               anno.archived()
           );
 
-          CategoryJson created = spendApiClient.createCategory(category);
+          CategoryJson created = spendApiClient.addCategory(category);
           if (anno.archived()) {
             CategoryJson archivedCategory = new CategoryJson(
                 created.id(),
