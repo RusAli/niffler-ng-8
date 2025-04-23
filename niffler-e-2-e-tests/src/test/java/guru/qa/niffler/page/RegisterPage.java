@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class RegisterPage {
 
-  public static final String URL = Config.getInstance().loginUrl() + "register";
+  public static final String URL = Config.getInstance().authUrl() + "register";
 
 
   private final SelenideElement usernameInput = $("#username");

@@ -1,8 +1,8 @@
-package guru.qa.niffler.jupiter;
+package guru.qa.niffler.jupiter.extension;
 
-import com.github.javafaker.Faker;
 import guru.qa.niffler.jupiter.annotation.NewRandomUser;
 import guru.qa.niffler.model.UserJson;
+import guru.qa.niffler.utils.RandomDataUtils;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.support.AnnotationSupport;
 
@@ -15,11 +15,10 @@ public class CreateNewUserExtension implements BeforeEachCallback, ParameterReso
 
     AnnotationSupport.findAnnotation(context.getRequiredTestMethod(), NewRandomUser.class)
             .ifPresent(newUser -> {
-              Faker faker = new Faker();
               UserJson newUserJson = new UserJson(
                       null,
-                      faker.name().username(),
-                      faker.internet().password(3, 12),
+                      RandomDataUtils.randomUsername(),
+                      RandomDataUtils.randomPassword(),
                       null,
                       null,
                       null

@@ -2,27 +2,31 @@ package guru.qa.niffler.test.web;
 
 import com.codeborne.selenide.Selenide;
 import guru.qa.niffler.config.Config;
+import guru.qa.niffler.jupiter.annotation.Category;
 import guru.qa.niffler.jupiter.annotation.DisabledByIssue;
-import guru.qa.niffler.jupiter.annotation.Spend;
-import guru.qa.niffler.jupiter.extension.BrowserExtension;
+import guru.qa.niffler.jupiter.annotation.Spending;
+import guru.qa.niffler.jupiter.annotation.meta.User;
+import guru.qa.niffler.jupiter.annotation.meta.WebTest;
 import guru.qa.niffler.model.CurrencyValues;
 import guru.qa.niffler.model.SpendJson;
 import guru.qa.niffler.page.LoginPage;
 import guru.qa.niffler.page.MainPage;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-@ExtendWith(BrowserExtension.class)
+@WebTest
 public class SpendingTest {
 
   private static final Config CFG = Config.getInstance();
 
-  @Spend(
+  @User(
           username = "duck",
-          category = "Обучение",
-          description = "Обучение Niffler 2.0",
-          amount = 89000.00,
-          currency = CurrencyValues.RUB
+          categories = @Category(),
+          spendings = @Spending(
+                  category = "Обучение",
+                  description = "Обучение Niffler 2.0",
+                  amount = 89000.00,
+                  currency = CurrencyValues.RUB
+          )
   )
   @DisabledByIssue("3")
   @Test

@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
 
-  public static final String URL = Config.getInstance().loginUrl();
+  public static final String URL = Config.getInstance().authUrl();
 
   private final SelenideElement usernameInput = $("input[name='username']");
   private final SelenideElement passwordInput = $("input[name='password']");
