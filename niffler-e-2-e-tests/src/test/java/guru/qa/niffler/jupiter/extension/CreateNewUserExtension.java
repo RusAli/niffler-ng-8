@@ -17,8 +17,11 @@ public class CreateNewUserExtension implements BeforeEachCallback, ParameterReso
             .ifPresent(newUser -> {
               UserJson newUserJson = new UserJson(
                       null,
+                      null,
                       RandomDataUtils.randomUsername(),
                       RandomDataUtils.randomPassword(),
+                      null,
+                      null,
                       null,
                       null,
                       null

@@ -15,7 +15,8 @@ public class ProfileTest {
   @User(
           categories = @Category(
                   archived = true
-          )
+          ),
+          username = "duck"
   )
   @Test
   void archivedCategoryShouldPresentInCategoriesList(CategoryJson category) {
@@ -30,7 +31,8 @@ public class ProfileTest {
   }
 
   @User(
-          categories = @Category()
+          categories = @Category(),
+          username = "duck"
   )
   @Test
   void activeCategoryShouldPresentInCategoriesList(CategoryJson category) {
