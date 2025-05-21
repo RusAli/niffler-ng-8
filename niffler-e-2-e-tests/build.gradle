@@ -18,6 +18,7 @@ buildscript {
         springDataCommonsVersion = '3.3.3'
         wiremockVersion = '3.0.1'
         fakerVersion = '1.0.2'
+        atomicOsVersion = '6.0.0'
         userdataWsdlUrl = System.getProperty("test.env") == "docker"
                 ? "http://userdata.niffler.dc:8089/ws/userdata.wsdl"
                 : "http://127.0.0.1:8089/ws/userdata.wsdl"
@@ -78,6 +79,9 @@ dependencies {
     }
     testImplementation "org.springframework.data:spring-data-commons:${springDataCommonsVersion}"
     // DB
+    testImplementation "com.atomikos:transactions-jta:${atomicOsVersion}:jakarta"
+    testImplementation "com.atomikos:transactions-hibernate4:${atomicOsVersion}:jakarta"
+    testImplementation "com.atomikos:transactions-jdbc:${atomicOsVersion}"
     testImplementation "org.springframework:spring-jdbc:${springJdbcVersion}"
     testImplementation "org.postgresql:postgresql:${project.ext.postgresDriverVersion}"
     testImplementation "p6spy:p6spy:${p6spyVersion}"
