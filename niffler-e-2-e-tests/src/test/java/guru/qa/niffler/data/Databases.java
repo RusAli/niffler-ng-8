@@ -23,17 +23,18 @@ public class Databases {
   public static final Map<String, DataSource> datasources = new ConcurrentHashMap<>();
   public static final Map<Long, Map<String, Connection>> threadConnections = new ConcurrentHashMap<>();
 
-  public record XaFunction<T>(Function<Connection, T> function, String jdbcUrl) {
+  public record XaFunction<T>(Function<Connection, T> function, String jdbcUrl, int transactionIsolationLevel) {
   }
 
-  public record XaConsumer(Consumer<Connection> function, String jdbcUrl) {
+  public record XaConsumer(Consumer<Connection> function, String jdbcUrl, int transactionIsolationLevel) {
   }
 
 
-  public static <T> T transaction(Function<Connection, T> function, String jdbcUrl) {
+  public static <T> T transaction(Function<Connection, T> function, String jdbcUrl, int transactionIsolationLevel) {
     Connection connection = null;
     try {
       connection = connection(jdbcUrl);
+      connection.setTransactionIsolation(transactionIsolationLevel);
       connection.setAutoCommit(false);
       T result = function.apply(connection);
       connection.commit();
@@ -73,10 +74,11 @@ public class Databases {
     }
   }
 
-  public static void transaction(Consumer<Connection> consumer, String jdbcUrl) {
+  public static void transaction(Consumer<Connection> consumer, String jdbcUrl, int transactionIsolationLevel) {
     Connection connection = null;
     try {
       connection = connection(jdbcUrl);
+      connection.setTransactionIsolation(transactionIsolationLevel);
       connection.setAutoCommit(false);
       consumer.accept(connection);
       connection.commit();
@@ -165,7 +167,7 @@ public class Databases {
             connection.close();
           }
         } catch (SQLException e) {
-          //NOP
+          System.out.println(e.getMessage());
         }
       }
 

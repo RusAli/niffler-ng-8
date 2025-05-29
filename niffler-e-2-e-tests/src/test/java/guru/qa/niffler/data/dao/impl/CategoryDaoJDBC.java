@@ -26,7 +26,7 @@ public class CategoryDaoJDBC implements CategoryDao {
   @Override
   public CategoryEntity create(CategoryEntity category) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "INSERT INTO category (name, username,archived) " +
+            "INSERT INTO \"category\" (name, username,archived) " +
                     "VALUES (?,?,?)",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
@@ -56,7 +56,7 @@ public class CategoryDaoJDBC implements CategoryDao {
   @Override
   public CategoryEntity update(CategoryEntity category) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "UPDATE category SET name = ?, username = ?,archived = ? WHERE id = ?",
+            "UPDATE \"category\" SET name = ?, username = ?,archived = ? WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
 
@@ -75,7 +75,7 @@ public class CategoryDaoJDBC implements CategoryDao {
   @Override
   public Optional<CategoryEntity> findCategoryById(UUID id) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "SELECT * FROM category WHERE id = ?",
+            "SELECT * FROM \"category\" WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setObject(1, id);
@@ -103,7 +103,7 @@ public class CategoryDaoJDBC implements CategoryDao {
   @Override
   public Optional<CategoryEntity> findCategoryByUsernameAndCategoryName(String username, String categoryName) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "SELECT * FROM category WHERE username = ? AND name = ?",
+            "SELECT * FROM \"category\" WHERE username = ? AND name = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setString(1, username);
@@ -128,7 +128,7 @@ public class CategoryDaoJDBC implements CategoryDao {
   @Override
   public List<CategoryEntity> findAllByUsername(String username) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "SELECT * FROM category WHERE username = ?",
+            "SELECT * FROM \"category\" WHERE username = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setString(1, username);
@@ -149,7 +149,7 @@ public class CategoryDaoJDBC implements CategoryDao {
   @Override
   public void deleteCategory(CategoryEntity categoryEntity) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "DELETE FROM category WHERE id = ?",
+            "DELETE FROM \"category\" WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setObject(1, categoryEntity.getId());

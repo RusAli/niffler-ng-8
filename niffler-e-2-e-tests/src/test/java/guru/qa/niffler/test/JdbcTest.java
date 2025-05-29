@@ -3,6 +3,8 @@ package guru.qa.niffler.test;
 import guru.qa.niffler.model.CategoryJson;
 import guru.qa.niffler.model.CurrencyValues;
 import guru.qa.niffler.model.SpendJson;
+import guru.qa.niffler.model.UserJson;
+import guru.qa.niffler.service.AuthDbClient;
 import guru.qa.niffler.service.SpendDbClient;
 import guru.qa.niffler.utils.RandomDataUtils;
 import org.junit.jupiter.api.Test;
@@ -34,5 +36,25 @@ public class JdbcTest {
             )
     );
     System.out.println(spend);
+  }
+
+  @Test
+  void xaTransactionsTest() {
+    AuthDbClient authDbClient = new AuthDbClient();
+    String username = RandomDataUtils.randomUsername();
+
+    UserJson userJson = authDbClient.createAuthUser(
+            new UserJson(
+                    null,
+                    "password",
+                    username,
+                    null,
+                    null,
+                    null,
+                    CurrencyValues.EUR,
+                    null,
+                    null
+            )
+    );
   }
 }

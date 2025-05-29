@@ -25,12 +25,12 @@ public class UserdataUserDAOJdbc implements UserDao {
   @Override
   public UserEntity createUser(UserEntity userEntity) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "INSERT INTO user (username,currency,firstname,surname,full_name,photo,photo_small) " +
+            "INSERT INTO \"user\" (username,currency,firstname,surname,full_name,photo,photo_small) " +
                     "VALUES (?,?,?,?,?,?,?)",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
 
-      ps.setString(1, userEntity.getSurname());
+      ps.setString(1, userEntity.getUsername());
       ps.setString(2, userEntity.getCurrency().name());
       ps.setString(3, userEntity.getFirstname());
       ps.setString(4, userEntity.getSurname());
@@ -59,7 +59,7 @@ public class UserdataUserDAOJdbc implements UserDao {
   @Override
   public Optional<UserEntity> findById(UUID id) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "SELECT * FROM user WHERE id = ?",
+            "SELECT * FROM \"user\" WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setObject(1, id);
@@ -83,7 +83,7 @@ public class UserdataUserDAOJdbc implements UserDao {
   @Override
   public Optional<UserEntity> findByUsername(String username) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "SELECT * FROM user WHERE username = ?",
+            "SELECT * FROM \"user\" WHERE username = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setString(1, username);
@@ -108,7 +108,7 @@ public class UserdataUserDAOJdbc implements UserDao {
   @Override
   public void delete(UserEntity userEntity) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "DELETE FROM user WHERE id = ?",
+            "DELETE FROM \"user\" WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setObject(1, userEntity.getId());

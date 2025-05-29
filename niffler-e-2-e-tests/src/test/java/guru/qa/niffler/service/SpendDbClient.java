@@ -8,11 +8,14 @@ import guru.qa.niffler.data.entity.spend.SpendEntity;
 import guru.qa.niffler.model.CategoryJson;
 import guru.qa.niffler.model.SpendJson;
 
+import java.sql.Connection;
+
 import static guru.qa.niffler.data.Databases.transaction;
 
 public class SpendDbClient {
 
   private static Config CFG = Config.getInstance();
+  private static final int DEFAULT_ISOLATION_LEVEL = Connection.TRANSACTION_READ_COMMITTED;
 
 
   public SpendJson createSpend(SpendJson spend) {
@@ -28,7 +31,8 @@ public class SpendDbClient {
                       new SpendDaoJDBC(connection)
                               .create(spendEntity));
             },
-            CFG.spendJdbcUrl()
+            CFG.spendJdbcUrl(),
+            DEFAULT_ISOLATION_LEVEL
     );
   }
 
@@ -40,7 +44,8 @@ public class SpendDbClient {
                       new CategoryDaoJDBC(connection).create(categoryEntity)
               );
             },
-            CFG.spendJdbcUrl()
+            CFG.spendJdbcUrl(),
+            DEFAULT_ISOLATION_LEVEL
     );
   }
 
@@ -53,7 +58,8 @@ public class SpendDbClient {
                       new CategoryDaoJDBC(connection).update(categoryEntity)
               );
             },
-            CFG.spendJdbcUrl()
+            CFG.spendJdbcUrl(),
+            DEFAULT_ISOLATION_LEVEL
     );
   }
 
