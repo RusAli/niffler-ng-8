@@ -6,6 +6,7 @@ import guru.qa.niffler.model.SpendJson;
 import guru.qa.niffler.model.UserJson;
 import guru.qa.niffler.service.AuthDbClient;
 import guru.qa.niffler.service.SpendDbClient;
+import guru.qa.niffler.service.UserDbClient;
 import guru.qa.niffler.utils.RandomDataUtils;
 import org.junit.jupiter.api.Test;
 
@@ -56,5 +57,29 @@ public class JdbcTest {
                     null
             )
     );
+  }
+
+  @Test
+  void jdbcSpringTest() {
+
+    UserDbClient userDbClient = new UserDbClient();
+    String username = RandomDataUtils.randomUsername();
+
+    UserJson userJson = userDbClient.createUserSpringJdbc(
+            new UserJson(
+                    null,
+                    "123",
+                    "duck5",
+                    null,
+                    null,
+                    null,
+                    CurrencyValues.EUR,
+                    null,
+                    null
+            )
+    );
+
+    System.out.println(userJson);
+
   }
 }
