@@ -147,6 +147,26 @@ public class CategoryDaoJDBC implements CategoryDao {
   }
 
   @Override
+  public List<CategoryEntity> findAll() {
+    try (PreparedStatement ps = connection.prepareStatement(
+            "SELECT * FROM \"category\"",
+            PreparedStatement.RETURN_GENERATED_KEYS
+    )) {
+      ps.execute();
+
+      try (ResultSet rs = ps.getResultSet()) {
+        List<CategoryEntity> categories = new ArrayList<>();
+        while (rs.next()) {
+          categories.add(getCategoryEntityFromResultSet(rs));
+        }
+        return categories;
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
   public void deleteCategory(CategoryEntity categoryEntity) {
     try (PreparedStatement ps = connection.prepareStatement(
             "DELETE FROM \"category\" WHERE id = ?",
@@ -158,7 +178,6 @@ public class CategoryDaoJDBC implements CategoryDao {
       throw new RuntimeException(e);
     }
   }
-
 
   private CategoryEntity getCategoryEntityFromResultSet(ResultSet rs) throws SQLException {
     CategoryEntity category = new CategoryEntity();
