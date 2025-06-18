@@ -28,7 +28,7 @@ public class SpendDaoJDBC implements SpendDao {
   @Override
   public SpendEntity create(SpendEntity spend) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "INSERT INTO spend (username, spend_date, currency, amount, description, category_id) " +
+            "INSERT INTO \"spend\" (username, spend_date, currency, amount, description, category_id) " +
                     "VALUES (?,?,?,?,?,?)",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
@@ -61,7 +61,7 @@ public class SpendDaoJDBC implements SpendDao {
   @Override
   public Optional<SpendEntity> findSpendById(UUID id) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "SELECT * FROM spend WHERE id = ?",
+            "SELECT * FROM \"spend\" WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setObject(1, id);
@@ -86,7 +86,7 @@ public class SpendDaoJDBC implements SpendDao {
   @Override
   public List<SpendEntity> findAllByUsername(String username) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "SELECT * FROM spend WHERE username = ?",
+            "SELECT * FROM \"spend\" WHERE username = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setString(1, username);
@@ -106,9 +106,29 @@ public class SpendDaoJDBC implements SpendDao {
   }
 
   @Override
+  public List<SpendEntity> findAll() {
+    try (PreparedStatement ps = connection.prepareStatement(
+            "SELECT * FROM \"spend\"",
+            PreparedStatement.RETURN_GENERATED_KEYS
+    )) {
+      ps.execute();
+
+      try (ResultSet rs = ps.getResultSet()) {
+        List<SpendEntity> spends = new ArrayList<>();
+        while (rs.next()) {
+          spends.add(getSpendEntityFromResultSet(rs));
+        }
+        return spends;
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
   public void deleteSpend(SpendEntity spend) {
     try (PreparedStatement ps = connection.prepareStatement(
-            "DELETE FROM spend WHERE id = ?",
+            "DELETE FROM \"spend\" WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
       ps.setObject(1, spend.getId());
