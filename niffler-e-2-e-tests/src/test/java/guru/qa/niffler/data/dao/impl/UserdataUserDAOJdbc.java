@@ -5,26 +5,21 @@ import guru.qa.niffler.data.dao.UserDao;
 import guru.qa.niffler.data.entity.userdata.UserEntity;
 import guru.qa.niffler.model.CurrencyValues;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
+import static guru.qa.niffler.data.tpl.Connections.holder;
+
 public class UserdataUserDAOJdbc implements UserDao {
 
   private static final Config CFG = Config.getInstance();
 
-  private final Connection connection;
-
-  public UserdataUserDAOJdbc(Connection connection) {
-    this.connection = connection;
-  }
-
   @Override
   public UserEntity createUser(UserEntity userEntity) {
-    try (PreparedStatement ps = connection.prepareStatement(
+    try (PreparedStatement ps = holder(CFG.userdataJdbcUrl()).connection().prepareStatement(
             "INSERT INTO \"user\" (username,currency,firstname,surname,full_name,photo,photo_small) " +
                     "VALUES (?,?,?,?,?,?,?)",
             PreparedStatement.RETURN_GENERATED_KEYS
@@ -58,7 +53,7 @@ public class UserdataUserDAOJdbc implements UserDao {
 
   @Override
   public Optional<UserEntity> findById(UUID id) {
-    try (PreparedStatement ps = connection.prepareStatement(
+    try (PreparedStatement ps = holder(CFG.userdataJdbcUrl()).connection().prepareStatement(
             "SELECT * FROM \"user\" WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
@@ -82,7 +77,7 @@ public class UserdataUserDAOJdbc implements UserDao {
 
   @Override
   public Optional<UserEntity> findByUsername(String username) {
-    try (PreparedStatement ps = connection.prepareStatement(
+    try (PreparedStatement ps = holder(CFG.userdataJdbcUrl()).connection().prepareStatement(
             "SELECT * FROM \"user\" WHERE username = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {
@@ -107,7 +102,7 @@ public class UserdataUserDAOJdbc implements UserDao {
 
   @Override
   public void delete(UserEntity userEntity) {
-    try (PreparedStatement ps = connection.prepareStatement(
+    try (PreparedStatement ps = holder(CFG.userdataJdbcUrl()).connection().prepareStatement(
             "DELETE FROM \"user\" WHERE id = ?",
             PreparedStatement.RETURN_GENERATED_KEYS
     )) {

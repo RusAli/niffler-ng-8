@@ -13,21 +13,18 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
+import static guru.qa.niffler.data.tpl.Connections.holder;
+
 public class AuthUserDaoJDBC implements AuthUserDao {
 
   private static final Config CFG = Config.getInstance();
 
-  private final Connection connection;
-
   private static final PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-  public AuthUserDaoJDBC(Connection connection) {
-    this.connection = connection;
-  }
 
   @Override
   public AuthUserEntity createUser(AuthUserEntity authUserEntity) {
-    try (PreparedStatement ps = connection.prepareStatement(
+    try (PreparedStatement ps = holder(CFG.authJdbcUrl()).connection().prepareStatement(
             "INSERT INTO \"user\" (username, password, enabled,account_non_expired,account_non_locked,credentials_non_expired) " +
                     "VALUES (?,?,?,?,?,?)",
             PreparedStatement.RETURN_GENERATED_KEYS
@@ -60,7 +57,7 @@ public class AuthUserDaoJDBC implements AuthUserDao {
 
   @Override
   public Optional<AuthUserEntity> findById(UUID id) {
-    try (PreparedStatement ps = connection.prepareStatement(
+    try (PreparedStatement ps = holder(CFG.authJdbcUrl()).connection().prepareStatement(
             "SELECT * FROM \"user\" WHERE id = ?"
     )) {
       ps.setObject(1, id);
@@ -82,7 +79,7 @@ public class AuthUserDaoJDBC implements AuthUserDao {
 
   @Override
   public Optional<AuthUserEntity> findByUsername(String username) {
-    try (PreparedStatement ps = connection.prepareStatement(
+    try (PreparedStatement ps = holder(CFG.authJdbcUrl()).connection().prepareStatement(
             "SELECT * FROM \"user\" WHERE username = ?"
     )) {
       ps.setObject(1, username);
