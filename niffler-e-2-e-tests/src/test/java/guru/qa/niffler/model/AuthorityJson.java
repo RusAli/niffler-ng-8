@@ -19,6 +19,6 @@ public record AuthorityJson(
     return new AuthorityJson(
             authorityEntity.getId(),
             authorityEntity.getAuthority(),
-            authorityEntity.getUserId());
+            authorityEntity.getUser().getId());
   }
 }

@@ -17,14 +17,12 @@ public class AuthorityDaoJDBC implements AuthorityDao {
   @Override
   public void createAuthority(List<AuthorityEntity> authorityEntities) {
     try (PreparedStatement ps = holder(CFG.authJdbcUrl()).connection().prepareStatement(
-            "INSERT INTO \"authority\" (user_id, authority) " +
-                    "VALUES (?,?)",
-            PreparedStatement.RETURN_GENERATED_KEYS
+            "INSERT INTO \"authority\" (user_id, authority) VALUES (?,?)"
     )) {
 
       for (AuthorityEntity authority : authorityEntities) {
 
-        ps.setObject(1, authority.getUserId());
+        ps.setObject(1, authority.getUser().getId());
         ps.setString(2, authority.getAuthority().name());
         ps.addBatch();
         ps.clearParameters();

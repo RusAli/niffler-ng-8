@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class SpendDaoSpringJDBC implements SpendDao {
   private static final Config CFG = Config.getInstance();
 
   @Override
-  public SpendEntity create(SpendEntity spendEntity) {
+  public SpendEntity create(SpendEntity spend) {
 
     JdbcTemplate jdbcTemplate = new JdbcTemplate(DataSources.dataSource(CFG.spendJdbcUrl()));
     KeyHolder kh = new GeneratedKeyHolder();
@@ -31,21 +32,21 @@ public class SpendDaoSpringJDBC implements SpendDao {
                               "VALUES (?,?,?,?,?,?)",
                       PreparedStatement.RETURN_GENERATED_KEYS);
 
-              ps.setString(1, spendEntity.getUsername());
-              ps.setDate(2, spendEntity.getSpendDate());
-              ps.setString(3, spendEntity.getCurrency().name());
-              ps.setDouble(4, spendEntity.getAmount());
-              ps.setString(5, spendEntity.getDescription());
-              ps.setObject(6, spendEntity.getCategory().getId());
+              ps.setString(1, spend.getUsername());
+              ps.setDate(2, new Date(spend.getSpendDate().getTime()));
+              ps.setString(3, spend.getCurrency().name());
+              ps.setDouble(4, spend.getAmount());
+              ps.setString(5, spend.getDescription());
+              ps.setObject(6, spend.getCategory().getId());
 
               return ps;
             }, kh
     );
 
     final UUID generatedKey = (UUID) kh.getKeys().get("id");
-    spendEntity.setId(generatedKey);
+    spend.setId(generatedKey);
 
-    return spendEntity;
+    return spend;
   }
 
   @Override
