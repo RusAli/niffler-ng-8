@@ -13,7 +13,7 @@ import java.util.UUID;
 
 import static guru.qa.niffler.data.tpl.Connections.holder;
 
-public class UserdataUserDAOJdbc implements UserDao {
+public class UserDaoJDBC implements UserDao {
 
   private static final Config CFG = Config.getInstance();
 
