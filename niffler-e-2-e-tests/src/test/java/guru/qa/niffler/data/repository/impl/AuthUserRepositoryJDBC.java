@@ -74,13 +74,13 @@ public class AuthUserRepositoryJDBC implements AuthUserRepository {
 
   @Override
   public Optional<AuthUserEntity> findById(UUID id) {
-    try (PreparedStatement ps = holder(CFG.authJdbcUrl()).connection().prepareStatement(
+    try (PreparedStatement userPs = holder(CFG.authJdbcUrl()).connection().prepareStatement(
             "select * from \"user\" u join authority a on u.id = a.user_id where u.id = ?"
     )) {
-      ps.setObject(1, id);
-      ps.execute();
+      userPs.setObject(1, id);
+      userPs.execute();
 
-      try (ResultSet rs = ps.getResultSet()) {
+      try (ResultSet rs = userPs.getResultSet()) {
 
         AuthUserEntity user = null;
         List<AuthorityEntity> authorityEntities = new ArrayList<>();
@@ -106,9 +106,9 @@ public class AuthUserRepositoryJDBC implements AuthUserRepository {
           result.setAccountNonLocked(rs.getBoolean("account_non_locked"));
           result.setCredentialsNonExpired(rs.getBoolean("credentials_non_expired"));
         }
-        if(user == null){
+        if (user == null) {
           return Optional.empty();
-        }else {
+        } else {
           user.setAuthorities(authorityEntities);
           return Optional.of(user);
         }
