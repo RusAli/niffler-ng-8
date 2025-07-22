@@ -10,8 +10,6 @@ public record UserJson(
 
         @JsonProperty("id")
         UUID id,
-        @JsonProperty("password")
-        String password,
         @JsonProperty("username")
         String username,
         @JsonProperty("firstname")
@@ -30,7 +28,6 @@ public record UserJson(
   public static UserJson fromEntity(UserEntity userEntity) {
     return new UserJson(
             userEntity.getId(),
-            userEntity.getPassword(),
             userEntity.getUsername(),
             userEntity.getFirstname(),
             userEntity.getSurname(),

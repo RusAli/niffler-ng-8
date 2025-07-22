@@ -56,7 +56,6 @@ public class UserDbClient {
 
               AuthUserEntity authUser = new AuthUserEntity();
               authUser.setUsername(userJson.username());
-              authUser.setPassword(userJson.password());
               authUser.setEnabled(true);
               authUser.setAccountNonExpired(true);
               authUser.setAccountNonLocked(true);
@@ -69,7 +68,7 @@ public class UserDbClient {
                               e -> {
 
                                 AuthorityEntity ae = new AuthorityEntity();
-                                ae.setUserId(createdAuthUser.getId());
+                                ae.setUser(createdAuthUser);
                                 ae.setAuthority(e);
                                 return ae;
                               }
@@ -90,7 +89,6 @@ public class UserDbClient {
 
               AuthUserEntity authUser = new AuthUserEntity();
               authUser.setUsername(userJson.username());
-              authUser.setPassword(userJson.password());
               authUser.setEnabled(true);
               authUser.setAccountNonExpired(true);
               authUser.setAccountNonLocked(true);
@@ -103,7 +101,7 @@ public class UserDbClient {
                               e -> {
 
                                 AuthorityEntity ae = new AuthorityEntity();
-                                ae.setUserId(createdAuthUser.getId());
+                                ae.setUser(createdAuthUser);
                                 ae.setAuthority(e);
                                 return ae;
                               }
@@ -124,7 +122,6 @@ public class UserDbClient {
 
               AuthUserEntity authUser = new AuthUserEntity();
               authUser.setUsername(userJson.username());
-              authUser.setPassword(userJson.password());
               authUser.setEnabled(true);
               authUser.setAccountNonExpired(true);
               authUser.setAccountNonLocked(true);
@@ -137,7 +134,7 @@ public class UserDbClient {
                               e -> {
 
                                 AuthorityEntity ae = new AuthorityEntity();
-                                ae.setUserId(createdAuthUser.getId());
+                                ae.setUser(createdAuthUser);
                                 ae.setAuthority(e);
                                 return ae;
                               }
@@ -158,7 +155,6 @@ public class UserDbClient {
 
               AuthUserEntity authUser = new AuthUserEntity();
               authUser.setUsername(userJson.username());
-              authUser.setPassword(userJson.password());
               authUser.setEnabled(true);
               authUser.setAccountNonExpired(true);
               authUser.setAccountNonLocked(true);
@@ -171,7 +167,7 @@ public class UserDbClient {
                               e -> {
 
                                 AuthorityEntity ae = new AuthorityEntity();
-                                ae.setUserId(createdAuthUser.getId());
+                                ae.setUser(createdAuthUser);
                                 ae.setAuthority(e);
                                 return ae;
                               }
@@ -192,7 +188,6 @@ public class UserDbClient {
 
               AuthUserEntity authUser = new AuthUserEntity();
               authUser.setUsername(userJson.username());
-              authUser.setPassword(userJson.password());
               authUser.setEnabled(true);
               authUser.setAccountNonExpired(true);
               authUser.setAccountNonLocked(true);
@@ -205,7 +200,7 @@ public class UserDbClient {
                               e -> {
 
                                 AuthorityEntity ae = new AuthorityEntity();
-                                ae.setUserId(createdAuthUser.getId());
+                                ae.setUser(createdAuthUser);
                                 ae.setAuthority(e);
                                 return ae;
                               }
@@ -227,7 +222,6 @@ public class UserDbClient {
 
               AuthUserEntity authUser = new AuthUserEntity();
               authUser.setUsername(userJson.username());
-              authUser.setPassword(userJson.password());
               authUser.setEnabled(true);
               authUser.setAccountNonExpired(true);
               authUser.setAccountNonLocked(true);
@@ -240,7 +234,7 @@ public class UserDbClient {
                               e -> {
 
                                 AuthorityEntity ae = new AuthorityEntity();
-                                ae.setUserId(createdAuthUser.getId());
+                                ae.setUser(createdAuthUser);
                                 ae.setAuthority(e);
                                 return ae;
                               }

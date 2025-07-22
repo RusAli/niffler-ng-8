@@ -1,11 +1,9 @@
 package guru.qa.niffler.test;
 
-import guru.qa.niffler.model.CategoryJson;
-import guru.qa.niffler.model.CurrencyValues;
-import guru.qa.niffler.model.SpendJson;
-import guru.qa.niffler.model.UserJson;
+import guru.qa.niffler.model.*;
 import guru.qa.niffler.service.SpendDbClient;
 import guru.qa.niffler.service.UserDbClient;
+import guru.qa.niffler.service.UserDbClientRepository;
 import guru.qa.niffler.utils.RandomDataUtils;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +45,6 @@ public class JdbcTest {
     UserJson userJson = userDbClient.createUserJdbc(
             new UserJson(
                     null,
-                    "123456",
                     username,
                     null,
                     null,
@@ -68,7 +65,6 @@ public class JdbcTest {
 
     UserJson userJson = userDbClient.xaCreateUserJdbc(
             new UserJson(
-                    null,
                     null,
                     username,
                     null,
@@ -95,7 +91,6 @@ public class JdbcTest {
                     username,
                     null,
                     null,
-                    null,
                     CurrencyValues.EUR,
                     null,
                     null
@@ -117,7 +112,6 @@ public class JdbcTest {
                     username,
                     null,
                     null,
-                    null,
                     CurrencyValues.EUR,
                     null,
                     null
@@ -137,7 +131,6 @@ public class JdbcTest {
                     null,
                     "123456",
                     username,
-                    null,
                     null,
                     null,
                     CurrencyValues.EUR,
@@ -167,11 +160,31 @@ public class JdbcTest {
                     username,
                     null,
                     null,
-                    null,
                     CurrencyValues.EUR,
                     null,
                     null
             )
     );
+  }
+
+
+  @Test
+  void createUserFromUserDbClientRepository() {
+
+    UserDbClientRepository userDbClient = new UserDbClientRepository();
+    String username = RandomDataUtils.randomUsername();
+
+    AuthUserJson userJson = userDbClient.createUserJDBC(
+            new AuthUserJson(
+                    null,
+                    username,
+                    "12345",
+                    true,
+                    true,
+                    true,
+                    true
+            )
+    );
+    System.out.println(userJson);
   }
 }

@@ -3,7 +3,7 @@ package guru.qa.niffler.test.web;
 import com.codeborne.selenide.Selenide;
 import guru.qa.niffler.jupiter.annotation.NewRandomUser;
 import guru.qa.niffler.jupiter.annotation.meta.WebTest;
-import guru.qa.niffler.model.UserJson;
+import guru.qa.niffler.model.AuthUserJson;
 import guru.qa.niffler.page.RegisterPage;
 import org.junit.jupiter.api.Test;
 
@@ -13,17 +13,17 @@ public class RegistrationTest {
 
   @NewRandomUser
   @Test
-  void shouldRegisterNewUser(UserJson userJson) {
+  void shouldRegisterNewUser(AuthUserJson authUserJson) {
 
     Selenide.open(RegisterPage.URL, RegisterPage.class)
             .checkPageIsOpened()
-            .setUsernameInput(userJson.username())
-            .setPasswordInput(userJson.password())
-            .setPasswordSubmitInput(userJson.password())
+            .setUsernameInput(authUserJson.username())
+            .setPasswordInput(authUserJson.password())
+            .setPasswordSubmitInput(authUserJson.password())
             .submitRegistration()
             .checkSuccessRegisterMessageIsVisible()
             .clickSignInBtn()
-            .doLogin(userJson.username(), userJson.password())
+            .doLogin(authUserJson.username(), authUserJson.password())
             .checkThatMainPageIsShown();
   }
 
