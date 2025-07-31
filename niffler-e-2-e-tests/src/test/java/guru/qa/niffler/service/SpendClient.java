@@ -8,4 +8,6 @@ public interface SpendClient {
 
   CategoryJson createCategory(CategoryJson category);
 
+  void deleteCategory(CategoryJson category);
+
 }

@@ -14,11 +14,17 @@ public class MainPage {
   private final ElementsCollection tableRows = $("#spendings tbody").$$("tr");
   private final SelenideElement statComponent = $("#stat");
   private final SelenideElement spendingTable = $("#spendings");
+  private final SelenideElement searchField = $("input[placeholder='Search']");
 
   public FriendsPage friendsPage() {
     header.$("button").click();
     headerMenu.$$("li").find(text("Friends")).click();
     return new FriendsPage();
+  }
+
+  public MainPage searchFriend(String username) {
+    searchField.setValue(username).pressEnter();
+    return this;
   }
 
   public PeoplePage allPeoplesPage() {
